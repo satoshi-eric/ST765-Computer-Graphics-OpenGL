@@ -11,9 +11,9 @@ Na pasta `dependencies` estão todos os arquivos necessários para o desenvolvim
 
 ## Estrutura dos diretórios
 Os diretórios de atividades estão organizados em
-- bin: Contém todos os binários compilados: um `main.o` e um `main.exe`
-- src: Contém o código fonte. Haverá um código `main.c` que será compilado e podem haver outras bibliotecas estáticas `.h`
-- doc: Contém `docs`, `pdfs`, `imagens`, etc, necessários às atividades
+- **bin:** Contém todos os binários compilados: um `main.o` e um `main.exe`
+- **src:** Contém o código fonte. Haverá um código `main.c` que será compilado e podem haver outras bibliotecas estáticas `.h`
+- **doc:** Contém `docs`, `pdfs`, `imagens`, etc, necessários às atividades
 Outros diretórios terão suas próprias estruturas
 
 ## Rodando os programas
@@ -21,9 +21,9 @@ Dentro do diretório raíz do repositório, há uma script `run.ps1`. Instruçõ
 ```powershell
 ./run.ps1 -name [name] -option [option]
 ```
-- [name]: Nome do diretório do programa
-- [option]: Uma das 3 opções a seguir:
-  - build: compila o programa do diretório `[name]/src` e o coloca no diretório `[name]/bin`
-  - run: roda o programa do diretório `[name]/bin`
-  - remove: remove todos os arquivos do diretório `[name]/bin`
+- **[name]:** Nome do diretório do programa
+- **[option]:** Uma das 3 opções a seguir:
+  - **build:** compila o programa do diretório `[name]/src` e o coloca no diretório `[name]/bin`
+  - **run:** roda o programa do diretório `[name]/bin`
+  - **remove:** remove todos os arquivos do diretório `[name]/bin`
     
