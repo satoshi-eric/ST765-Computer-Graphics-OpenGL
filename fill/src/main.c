@@ -1,3 +1,8 @@
+/*
+ * Eric Satoshi Suzuki Kishimoto 233974
+ * Verônica Cintra de Oliveira 244963
+ */
+
 // gcc main.c -o main.exe -lfreeglut -lopengl32 -lglu32
 #include <gl/freeglut.h>
 
