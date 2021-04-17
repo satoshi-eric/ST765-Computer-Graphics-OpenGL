@@ -1,6 +1,7 @@
 # ST765-Computer-Graphics-OpenGL
 Repositório para atividades práticas da disciplina ST765 - Computação gráfica da Unicamp com com o OpenGL.
 
+## Instalando OpenGL no Windows
 Para OpenGL no Windows, instalar o MimGW via [sourcefourge](https://sourceforge.net/projects/mingw/) ou [chocolatery](https://chocolatey.org/install).
 
 Na pasta `dependencies` estão todos os arquivos necessários para o desenvolvimento com OpenGL.
