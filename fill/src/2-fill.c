@@ -1,4 +1,4 @@
-// gcc 2-fill.c -o fill -lfreeglut -lopengl32 -lglu32
+// gcc main.c -o main.exe -lfreeglut -lopengl32 -lglu32
 #include <gl/freeglut.h>
 
 GLenum displayMode = GL_LINE_STRIP;
