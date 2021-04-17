@@ -1,0 +1,12 @@
+ATIVIDADE AVALIATIVA - OPENGL 
+
+Criar uma cena gráfica com a ilustração de um animal ou objeto em formato de malha triangular. A janela pode ter qualquer tamanho. Veja outros requisitos:
+1. O animal ou objeto deve possuir um "buraco" (veja o exemplo do olho do peixe dado abaixo);
+2. Os vértices do animal ou objeto podem estar em um arquivo txt ou no próprio programa C+OpenGL;
+3. A cena deve alternar entre a apresentação do animal ou objeto por meio de seu contorno ou com preenchimento; essa ação deve ser executada via clique do mouse em qualquer parte da cena.
+
+É fornecido um arquivo ppt com uma malha de triângulos exemplo para servir de base para elaboração do desenho ou objeto (uso opcional).
+
+Deve ser entregue:
+
+Código C+OpenGL -- E -- Captura de tela nas duas formas de visualização --E-- arquivo txt com pontos da cena (caso pertinente)
