@@ -27,3 +27,6 @@ Dentro do diretório raíz do repositório, há uma script `run.ps1`. Instruçõ
   - **run:** roda o programa do diretório `[name]/bin`
   - **remove:** remove todos os arquivos do diretório `[name]/bin`
     
+Programas desenvolvidos:
+1. line
+2. fill
