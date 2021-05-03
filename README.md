@@ -16,6 +16,7 @@ Os diretórios de atividades estão organizados em
 - **doc:** Contém `docs`, `pdfs`, `imagens`, etc, necessários às atividades
 Outros diretórios terão suas próprias estruturas
 
+<!--
 ## Rodando os programas
 Dentro do diretório raíz do repositório, há uma script `run.ps1`. Instruções de uso serão dadas quando tentar rodá-lo. Para usá-lo, use o comando
 ```powershell
@@ -27,6 +28,9 @@ Dentro do diretório raíz do repositório, há uma script `run.ps1`. Instruçõ
   - **run:** roda o programa do diretório `[name]/bin`
   - **remove:** remove todos os arquivos do diretório `[name]/bin`
     
+-->
+    
 Programas desenvolvidos:
 1. line
 2. fill
+3. 3. airplane
