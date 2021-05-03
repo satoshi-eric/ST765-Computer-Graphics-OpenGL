@@ -33,4 +33,4 @@ Dentro do diretório raíz do repositório, há uma script `run.ps1`. Instruçõ
 Programas desenvolvidos:
 1. line
 2. fill
-3. 3. airplane
+3. airplane
