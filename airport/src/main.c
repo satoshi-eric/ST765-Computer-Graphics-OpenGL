@@ -1,15 +1,69 @@
-//gcc main.c -o main -lopengl32 -lglu32 -lfreeglut
+// Eric Satoshi Suzuki Kishimoto RA: 233974
+// Verônica Cintra de Oliveira RA: 244963
+
+/*
+	Teclas para interação
+	- r: rotacionar sentido antihorário eixo y
+	- R: rotacionar sentido horário eixo y
+	- e: zoom-out
+	- E: zoom-in
+*/
+
+
+// gcc main.c -o main -static-libgcc -lopengl32 -lglu32 -lfreeglut
 //./main
 
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <GL/freeglut.h>
+#include "image.h"
+#define TEXTURA_DO_PLANO "textura.sgi"
 
 static int rot = 0;
 static int zoom = 1;
+GLuint  textura_plano;
+GLfloat planotext[4][3]={
+  {-1, 0, -1},
+  {1, 0, -1},
+  {1, 0, 1},
+  {-1, 0, -1}
+};
+
+
+void carregar_texturas(void){
+  IMAGE *img;
+  GLenum gluerr;
+
+  /* textura do plano */
+  glGenTextures(1, &textura_plano);
+  glBindTexture(GL_TEXTURE_2D, textura_plano);
+  
+  if(!(img=ImageLoad(TEXTURA_DO_PLANO))) {
+    fprintf(stderr,"Error reading a texture.\n");
+    exit(-1);
+  }
+
+  gluerr=gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 
+			   img->sizeX, img->sizeY, 
+			   GL_RGB, GL_UNSIGNED_BYTE, 
+			   (GLvoid *)(img->data));
+  if(gluerr){
+    fprintf(stderr,"GLULib%s\n",gluErrorString(gluerr));
+    exit(-1);
+  }
+
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+  glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
+
+}
 
 void init(void){
 	glClearColor (0.0, 0.0, 0.0, 0.0);
+	carregar_texturas();
+	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -21,11 +75,21 @@ void display(void){
 	glScalef (zoom, zoom, zoom);
 
 	/* Chão */
-	glColor3f(0.3,0.3,0.3);
+	glColor3f(0.4,0.4,0.4);
 	glPushMatrix();
 	glScalef (8.0, 0.2, 10.0);
 	glutSolidCube (1.0);
 	glPopMatrix();
+
+	/* Textura do chão */
+	glEnable(GL_TEXTURE_2D);  
+	glBegin(GL_QUADS);
+	glTexCoord3fv(planotext[0]);  glVertex3f(-1.1, 0.12, -5.2);
+	glTexCoord3fv(planotext[1]);  glVertex3f( 2.5, 0.12,   -5.2);
+	glTexCoord3fv(planotext[2]);  glVertex3f( 2.5, 0.12,    5.2);
+	glTexCoord3fv(planotext[3]);  glVertex3f(-1.1, 0.12,  5.2);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
 
 	/* Céu esquerda */
 	glColor3f(0.5,0.8,1.0);
