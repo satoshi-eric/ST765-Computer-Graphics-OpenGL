@@ -9,7 +9,6 @@
 	- E: zoom-in
 */
 
-
 // gcc main.c -o main -static-libgcc -lopengl32 -lglu32 -lfreeglut
 //./main
 
@@ -28,7 +27,6 @@ GLfloat planotext[4][3]={
   {1, 0, 1},
   {-1, 0, -1}
 };
-
 
 void carregar_texturas(void){
   IMAGE *img;
@@ -65,11 +63,66 @@ void init(void){
 	carregar_texturas();
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH);
 }
 
 void display(void){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
+
+	GLfloat luzPos[] = { 0.0, 3.0, 0.0, 1.0};
+	GLfloat luzCor[] = { 1.0, 1.0, 1.0, 1.0};
+	GLfloat luzCorAmbiente[] = { 0.3, 0.3, 0.3, 1.0};
+
+	GLfloat matBrancoDifusa[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matBrancoEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matBrancoBrilho[] = { 50.0 };
+
+	GLfloat matPretoDifusa[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat matPretoEspecular[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat matPretoBrilho[] = { 90.0 };
+
+	GLfloat matRoxoDifusa[] = { 0.2, 0.2, 0.9, 1.0 };
+	GLfloat matRoxoEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matRoxoBrilho[] = { 50.0 };
+
+	GLfloat matRoxoEscuroDifusa[] = { 0.1, 0.1, 0.3, 1.0 };
+	GLfloat matRoxoEscuroEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matRoxoEscuroBrilho[] = { 50.0 };
+
+	GLfloat matAzulDifusa[] = { 0.5, 0.8, 1.0, 1.0 };
+	GLfloat matAzulEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matAzulBrilho[] = { 50.0 };
+
+	GLfloat matAzulEscuroDifusa[] = { 0.2, 0.5, 1.0, 1.0 };
+	GLfloat matAzulEscuroEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matAzulEscuroBrilho[] = { 50.0 };
+
+	GLfloat matEspelhoDifusa[] = { 0.3, 0.6, 0.8, 1.0 };
+	GLfloat matEspelhoEspecular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat matEspelhoBrilho[] = { 10.0 };
+
+	GLfloat matCinzaDifusa[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat matCinzaEspecular[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat matCinzaBrilho[] = { 70.0 };
+
+	GLfloat matCobreDifusa[] = { 1.0, 0.5, 0.4, 1.0 };
+	GLfloat matCobreEspecular[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat matCobreBrilho[] = { 70.0 };
+
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzCor);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luzCor);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzCorAmbiente);
+	glLightfv(GL_LIGHT0, GL_POSITION, luzPos);
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matPretoDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matPretoEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matPretoBrilho);
+
 
 	glRotatef ((GLfloat) rot, 0.0, 1.0, 0.0);
 	glScalef (zoom, zoom, zoom);
@@ -81,15 +134,20 @@ void display(void){
 	glutSolidCube (1.0);
 	glPopMatrix();
 
-	/* Textura do chão */
+	/* Textura do Chão */
 	glEnable(GL_TEXTURE_2D);  
 	glBegin(GL_QUADS);
 	glTexCoord3fv(planotext[0]);  glVertex3f(-1.1, 0.12, -5.2);
-	glTexCoord3fv(planotext[1]);  glVertex3f( 2.5, 0.12,   -5.2);
-	glTexCoord3fv(planotext[2]);  glVertex3f( 2.5, 0.12,    5.2);
-	glTexCoord3fv(planotext[3]);  glVertex3f(-1.1, 0.12,  5.2);
+	glTexCoord3fv(planotext[1]);  glVertex3f( 2.5, 0.12, -5.2);
+	glTexCoord3fv(planotext[2]);  glVertex3f( 2.5, 0.12, 5.2);
+	glTexCoord3fv(planotext[3]);  glVertex3f(-1.1, 0.12, 5.2);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+
+	/* Material Azul */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matAzulDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matAzulEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matAzulBrilho);
 
 	/* Céu esquerda */
 	glColor3f(0.5,0.8,1.0);
@@ -106,6 +164,11 @@ void display(void){
 	glScalef (8.0, 6.0, 0.2);
 	glutSolidCube (1.0);
 	glPopMatrix();
+
+	/* Material Nuvem */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matBrancoDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matBrancoEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matBrancoBrilho);
 
 	/* Nuvem 1 direita */
 	glColor3f(0.9,0.9,0.9);
@@ -203,6 +266,11 @@ void display(void){
 	glutSolidCube (1.0);
 	glPopMatrix();
 
+	/* Material Azul Escuro */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matAzulEscuroDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matAzulEscuroEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matAzulEscuroBrilho);
+
 	/* Aeroporto */
 	glColor3f(0.6,0.6,0.6);
 	glPushMatrix();
@@ -219,6 +287,11 @@ void display(void){
 	glutSolidSphere(3,100, 100);
 	glPopMatrix();
 
+	/* Material Cinza */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matCinzaDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matCinzaEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matCinzaBrilho);
+
 	/* Base torre */
 	glColor3f(0.6,0.6,0.6);
 	glPushMatrix();
@@ -226,6 +299,11 @@ void display(void){
 	glScalef (0.6, 3, 0.6);
 	glutSolidCube (1.0);
 	glPopMatrix();
+
+	/* Material Espelho */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matEspelhoDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matEspelhoEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matEspelhoBrilho);
 
 	/* Topo torre */
 	glColor3f(0.6,0.6,0.6);
@@ -243,6 +321,11 @@ void display(void){
 	glutSolidCube (1.0);
 	glPopMatrix();
 
+	/* Material Roxo */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matRoxoDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matRoxoEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matRoxoBrilho);
+
 	/* Corpo avião */
 	glColor3f(0.2,0.2,0.9);
 	glPushMatrix();
@@ -258,6 +341,11 @@ void display(void){
 	glScalef (0.3, 0.3, 0.7);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
+
+	/* Material Roxo Escuro */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matRoxoEscuroDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matRoxoEscuroEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matRoxoEscuroBrilho);
 
 	/* Asa frente*/
 	glColor3f(0.1,0.1,0.3);
@@ -275,6 +363,12 @@ void display(void){
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
 
+
+	/* Material Azul */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matAzulDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matAzulEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matAzulBrilho);
+
 	/* Cabine */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
@@ -282,6 +376,11 @@ void display(void){
 	glScalef (0.2, 0.1, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
+
+	/* Material Azul Escuro */
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matCobreDifusa);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matCobreEspecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, matCobreBrilho);
 
 	/* Hangar */
 	glColor3f(0.1,0.1,0.1);
