@@ -27,6 +27,39 @@ GLfloat planotext[4][3]={
   {1, 0, 1},
   {-1, 0, -1}
 };
+GLfloat aviao_pos[] = {-1.6, 0.5, -0.1, -1.4, 0};
+GLfloat deslocamento_aviao = 0;
+GLfloat deslocamento_nuvem = 0;
+int direcao_nuvens = 0;
+
+
+void mover_aviao(int arg) {
+	if (deslocamento_aviao < 4) {
+		deslocamento_aviao += 0.01;
+	}
+	glutPostRedisplay();
+	glutTimerFunc(10, mover_aviao, 1);
+}
+
+void mover_nuvens(int arg) {
+	if (direcao_nuvens == 0) {
+		if (deslocamento_nuvem <= 1) {
+			deslocamento_nuvem += 0.01;
+			direcao_nuvens = 0;
+		} else {
+			direcao_nuvens = 1;
+		}
+	} else if (direcao_nuvens == 1){
+		if (deslocamento_nuvem >= -1) {
+			deslocamento_nuvem -= 0.01;
+			direcao_nuvens = 1;
+		} else {
+			direcao_nuvens = 0;
+		}
+	}
+	glutPostRedisplay();
+	glutTimerFunc(10, mover_nuvens, 0);
+}
 
 void carregar_texturas(void){
   IMAGE *img;
@@ -173,7 +206,7 @@ void display(void){
 	/* Nuvem 1 direita */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 4.3, 0.3);
+	glTranslatef (-3.5, 4.3, 0.3+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -181,7 +214,7 @@ void display(void){
 	/* Nuvem 1 meio */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 4.5, 0);
+	glTranslatef (-3.5, 4.5, 0+deslocamento_nuvem);
 	glScalef (0.3, 0.4, 0.4);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -189,7 +222,7 @@ void display(void){
 	/* Nuvem 1 esquerda */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 4.3, -0.3);
+	glTranslatef (-3.5, 4.3, -0.3+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -197,7 +230,7 @@ void display(void){
 	/* Base nuvem 1 */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 4.23, 0);
+	glTranslatef (-3.5, 4.23, 0+deslocamento_nuvem);
 	glScalef (0.5, 0.4, 0.8);
 	glutSolidCube (1.0);
 	glPopMatrix();
@@ -205,7 +238,7 @@ void display(void){
 	/* Nuvem 2 direita */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.3, 3.3);
+	glTranslatef (-3.5, 3.3, 3.3+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -213,7 +246,7 @@ void display(void){
 	/* Nuvem 2 meio */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.5, 3.0);
+	glTranslatef (-3.5, 3.5, 3.0+deslocamento_nuvem);
 	glScalef (0.3, 0.4, 0.4);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -221,7 +254,7 @@ void display(void){
 	/* Nuvem 2 esquerda */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.3, 2.7);
+	glTranslatef (-3.5, 3.3, 2.7+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -229,7 +262,7 @@ void display(void){
 	/* Base nuvem 2 */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.23, 3.0);
+	glTranslatef (-3.5, 3.23, 3.0+deslocamento_nuvem);
 	glScalef (0.5, 0.4, 0.8);
 	glutSolidCube (1.0);
 	glPopMatrix();
@@ -237,7 +270,7 @@ void display(void){
 	/* Nuvem 3 direita */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.3, -3.7);
+	glTranslatef (-3.5, 3.3, -2.7+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -245,7 +278,7 @@ void display(void){
 	/* Nuvem 3 meio */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.5, -4.0);
+	glTranslatef (-3.5, 3.5, -3.0+deslocamento_nuvem);
 	glScalef (0.3, 0.4, 0.4);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -253,7 +286,7 @@ void display(void){
 	/* Nuvem 3 esquerda */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.3, -4.3);
+	glTranslatef (-3.5, 3.3, -3.3+deslocamento_nuvem);
 	glScalef (0.3, 0.3, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -261,7 +294,7 @@ void display(void){
 	/* Base nuvem 3 */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (-3.5, 3.23, -4.0);
+	glTranslatef (-3.5, 3.23, -3.0+deslocamento_nuvem);
 	glScalef (0.5, 0.4, 0.8);
 	glutSolidCube (1.0);
 	glPopMatrix();
@@ -329,7 +362,7 @@ void display(void){
 	/* Corpo avião */
 	glColor3f(0.2,0.2,0.9);
 	glPushMatrix();
-	glTranslatef (1, 0.5, -1);
+	glTranslatef (1, 0.5, aviao_pos[0]+deslocamento_aviao);
 	glScalef (0.15, 0.15, 0.03);
 	glutSolidCylinder(2.0,70.0,20.0,10.0);
 	glPopMatrix();
@@ -337,7 +370,7 @@ void display(void){
 	/* Frente avião */
 	glColor3f(0.2,0.2,0.9);
 	glPushMatrix();
-	glTranslatef (1, 0.5, 1);
+	glTranslatef (1, 0.5, aviao_pos[1]+deslocamento_aviao);
 	glScalef (0.3, 0.3, 0.7);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -350,7 +383,7 @@ void display(void){
 	/* Asa frente*/
 	glColor3f(0.1,0.1,0.3);
 	glPushMatrix();
-	glTranslatef (1, 0.5, 0.5);
+	glTranslatef (1, 0.5, aviao_pos[2]+deslocamento_aviao);
 	glScalef (1.5, 0.1, 0.3);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -358,7 +391,7 @@ void display(void){
 	/* Asa trás*/
 	glColor3f(0.1,0.1,0.3);
 	glPushMatrix();
-	glTranslatef (1, 0.5, -0.8);
+	glTranslatef (1, 0.5, aviao_pos[3]+deslocamento_aviao);
 	glScalef (0.8, 0.08, 0.2);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -372,7 +405,7 @@ void display(void){
 	/* Cabine */
 	glColor3f(0.9,0.9,0.9);
 	glPushMatrix();
-	glTranslatef (1, 0.8, 0.5);
+	glTranslatef (1, 0.8, aviao_pos[4]+deslocamento_aviao);
 	glScalef (0.2, 0.1, 0.5);
 	glutSolidSphere(1,100, 100);
 	glPopMatrix();
@@ -438,6 +471,8 @@ int main(int argc, char** argv) {
 	glutCreateWindow (argv[0]);
 	init ();
 	glutDisplayFunc(display);
+	glutTimerFunc(10, mover_aviao, 0);
+	glutTimerFunc(10, mover_nuvens, 0);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutMainLoop();
